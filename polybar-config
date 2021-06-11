@@ -1,0 +1,252 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #222
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/top-bar]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 33
+radius = 0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #fff
+
+;border-size = 3
+;border-color = #00000000
+
+padding-left = 2
+padding-right = 5
+
+module-margin-left = 3
+module-margin-right = 3
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=14;1
+
+modules-left = temperature memory cpu eth wlan
+modules-center = i3
+modules-right =  xkeyboard pulseaudio date time
+
+tray-position = left
+tray-padding = 2
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+;cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+[module/xwindow]
+    type = internal/xwindow
+    label = %title:0:30:...%
+
+
+[module/temperature]
+    type = internal/temperature
+    thermal-zone = 0
+    warn-temperature = 60
+
+    format = <ramp> <label>
+    ;format-underline = #fff
+    format-warn = <ramp> <label-warn>
+    format-warn-underline = ${self.format-underline}
+
+    label = %temperature-c%
+    label-warn = %temperature-c%
+    label-warn-foreground = ${colors.secondary}
+
+    ramp-0 = 
+    ramp-1 = 
+    ramp-2 = 
+    ramp-foreground = ${colors.foreground-alt}
+
+[module/cpu]
+    type = internal/cpu
+    interval = 2
+    format-prefix = " "
+    format-prefix-foreground = ${colors.foreground-alt}
+    ;format-underline = #fff
+    label = %percentage:02%%
+
+[module/memory]
+    type = internal/memory
+    interval = 2
+    format-prefix = " "
+    format-prefix-foreground = ${colors.foreground-alt}
+    ;format-underline = #fff
+    label = %gb_used% 
+
+[module/wlan]
+    type = internal/network
+    interface = wlp7s0
+    interval = 3.0
+
+    format-connected = <ramp-signal> <label-connected>
+    ;format-connected-underline = #fff
+    label-connected = %essid%
+
+    format-disconnected =
+    ;format-disconnected = <label-disconnected>
+    ;format-disconnected-underline = ${self.format-connected-underline}
+    ;label-disconnected = %ifname% disconnected
+    ;label-disconnected-foreground = ${colors.foreground-alt}
+
+    ramp-signal-0 = 
+    ramp-signal-1 = 
+    ramp-signal-2 = 
+    ramp-signal-3 = 
+    ramp-signal-4 = 
+    ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/eth]
+    type = internal/network
+    interface = enp8s0
+    interval = 3.0
+
+    format-connected-prefix = " "
+    ;format-connected-underline = #fff
+    format-connected-prefix-foreground = ${colors.foreground-alt}
+    label-connected = %local_ip%
+
+    format-disconnected =
+    ;format-disconnected = <label-disconnected>
+    ;format-disconnected-underline = ${self.format-connected-underline}
+    ;label-disconnected = %ifname% disconnected
+    ;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/time]
+    type = internal/date
+    interval = 1
+    time = %H:%M
+    ;time-alt = %H:%M:%S
+    format =  <label>
+    format-background = ${colors.background}
+    format-foreground = ${colors.foreground}
+    format-padding = 0
+    label = %time%
+    label-foreground = ${colors.foreground}
+
+[module/date]
+    type = internal/date
+    interval = 1
+    date = %a, %d %b
+    ;date-alt = %A, %d.%m.%Y
+    format =  <label>
+    format-background = ${colors.background}
+    format-foreground = ${colors.foreground}
+    format-padding = 0
+    label = %date% 
+    label-foreground = ${colors.foreground}
+
+[module/xkeyboard]
+    type = internal/xkeyboard
+    ;List of indicators to ignore
+    blacklist-0 = num lock
+    blacklist-1 = scroll lock
+
+    format-prefix = "  "
+    ;format-prefix-foreground = ${colors.foreground-alt}
+
+    label-layout = %name%
+
+    label-indicator-padding = 2
+    label-indicator-margin = 1
+    label-indicator-background = #fff
+
+[module/pulseaudio]
+    type = internal/pulseaudio
+
+    format-volume = <label-volume>
+    label-volume =  %percentage%%
+    label-volume-foreground = ${root.foreground}
+
+    label-muted =  muted
+    label-muted-foreground = #666
+
+[module/i3]
+    type = internal/i3
+    format = <label-state> <label-mode>
+    index-sort = true
+    wrapping-scroll = false
+
+    ; Only show workspaces on the same output as the bar
+    ;pin-workspaces = true
+
+    label-mode-padding = 2
+    label-mode-foreground = #000
+    label-mode-background = ${colors.primary}
+
+    ; focused = Active workspace on focused monitor
+    label-focused =  : %index%
+    label-focused-background = ${colors.background-alt}
+    label-focused-underline= ${colors.primary}
+    label-focused-padding = 2
+
+    ; unfocused = Inactive workspace on any monitor
+    label-unfocused =  : %index%
+    label-unfocused-padding = 2
+
+    ; visible = Active workspace on unfocused monitor
+    label-visible =  : %index%
+    label-visible-background = ${self.label-focused-background}
+    label-visible-underline = ${self.label-focused-underline}
+    label-visible-padding = ${self.label-focused-padding}
+
+    ; urgent = Workspace with urgency hint set
+    label-urgent =  : %index%
+    label-urgent-background = ${colors.alert}
+    label-urgent-padding = 2
+
+    ; label-separator = |
+
+[settings]
+    screenchange-reload = true
+    ;compositing-background = xor
+    ;compositing-background = screen
+    ;compositing-foreground = source
+    ;compositing-border = over
+    ;pseudo-transparency = false
+
+[global/wm]
+    margin-top = 5
+    margin-bottom = 0
+
+; vim:ft=dosini
