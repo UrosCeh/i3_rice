@@ -235,7 +235,7 @@ bindsym Control+3 exec setxkbmap rs latinyz
 exec_always feh --bg-fill ~/Downloads/pop.png 
 
 #Picom glx backend for no tearing
-exec picom -f -backend glx
+exec picom -f --backend glx
 
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
