@@ -63,7 +63,7 @@ bindsym $mod+d exec rofi -show run
 for_window [class="^.*"] border pixel 1
 
 # i3-gaps-inner-outer
-gaps inner 5
+gaps inner 10
 gaps outer 10
 
 set $mode_gaps Gaps: (o)uter, (i)nner
@@ -217,7 +217,7 @@ bindsym $mod+r mode "resize"
 set $bg-color #00897b
 set $i-bg-color #363636
 set $text-color #ffffff
-set $u-bg-color #ff0000
+set $u-bg-color #e60053
 
 # Set window colors - border background text indicator
 client.focused		$bg-color	$bg-color	$text-color	$bg-color
@@ -232,13 +232,13 @@ bindsym Control+2 exec setxkbmap rs yz
 bindsym Control+3 exec setxkbmap rs latinyz 
 
 #Feh - wallpaper
-exec_always feh --bg-fill ~/Downloads/pop.png 
+exec_always feh --bg-fill /usr/share/backgrounds/archlinux/archmountain.png
 
 #Picom glx backend for no tearing
 exec picom -f --backend glx
 
 # Polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id /home/hatch/.config/polybar/launch.sh
 
 # Assign programs to workspaces
 # xprop to find out class name WM_CLASS, secound parametar
