@@ -17,13 +17,11 @@
 ;==========================================================
 
 [colors]
-background = #222
-background-alt = #444
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+dark = #07070e
+white = #dfdfdf
+gray = #555
+yellow = #ffb52a
+alert = #e60053
 
 [bar/top-bar]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -32,9 +30,10 @@ height = 33
 radius = 0
 fixed-center = true
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+background = ${colors.dark}
+foreground = ${colors.white}
 
+;For underlines
 line-size = 3
 line-color = #fff
 
@@ -57,10 +56,9 @@ modules-right =  xkeyboard pulseaudio date time
 
 tray-position = left
 tray-padding = 2
-;tray-background = #0063ff
 
 ;wm-restack = bspwm
-wm-restack = i3
+;wm-restack = i3
 
 ;override-redirect = true
 
@@ -82,27 +80,27 @@ cursor-scroll = ns-resize
 [module/temperature]
     type = internal/temperature
     thermal-zone = 0
+    base-temperature = 30
     warn-temperature = 60
 
     format = <ramp> <label>
-    ;format-underline = #fff
     format-warn = <ramp> <label-warn>
     format-warn-underline = ${self.format-underline}
 
     label = %temperature-c%
     label-warn = %temperature-c%
-    label-warn-foreground = ${colors.secondary}
+    label-warn-foreground = ${colors.alert}
 
     ramp-0 = 
     ramp-1 = 
     ramp-2 = 
-    ramp-foreground = ${colors.foreground-alt}
+    ramp-foreground = ${colors.gray}
 
 [module/cpu]
     type = internal/cpu
     interval = 2
     format-prefix = " "
-    format-prefix-foreground = ${colors.foreground-alt}
+    format-prefix-foreground = ${colors.gray}
     ;format-underline = #fff
     label = %percentage:02%%
 
@@ -110,7 +108,7 @@ cursor-scroll = ns-resize
     type = internal/memory
     interval = 2
     format-prefix = " "
-    format-prefix-foreground = ${colors.foreground-alt}
+    format-prefix-foreground = ${colors.gray}
     ;format-underline = #fff
     label = %gb_used% 
 
@@ -127,14 +125,14 @@ cursor-scroll = ns-resize
     ;format-disconnected = <label-disconnected>
     ;format-disconnected-underline = ${self.format-connected-underline}
     ;label-disconnected = %ifname% disconnected
-    ;label-disconnected-foreground = ${colors.foreground-alt}
+    ;label-disconnected-foreground = ${colors.gray}
 
     ramp-signal-0 = 
     ramp-signal-1 = 
     ramp-signal-2 = 
     ramp-signal-3 = 
     ramp-signal-4 = 
-    ramp-signal-foreground = ${colors.foreground-alt}
+    ramp-signal-foreground = ${colors.gray}
 
 [module/eth]
     type = internal/network
@@ -143,60 +141,57 @@ cursor-scroll = ns-resize
 
     format-connected-prefix = " "
     ;format-connected-underline = #fff
-    format-connected-prefix-foreground = ${colors.foreground-alt}
+    format-connected-prefix-foreground = ${colors.gray}
     label-connected = %local_ip%
 
     format-disconnected =
     ;format-disconnected = <label-disconnected>
     ;format-disconnected-underline = ${self.format-connected-underline}
     ;label-disconnected = %ifname% disconnected
-    ;label-disconnected-foreground = ${colors.foreground-alt}
+    ;label-disconnected-foreground = ${colors.gray}
 
 [module/time]
     type = internal/date
     interval = 1
     time = %H:%M
-    ;time-alt = %H:%M:%S
     format =  <label>
-    format-background = ${colors.background}
-    format-foreground = ${colors.foreground}
+    format-background = ${colors.dark}
+    format-foreground = ${colors.white}
     format-padding = 0
     label = %time%
-    label-foreground = ${colors.foreground}
+    label-foreground = ${colors.white}
 
 [module/date]
     type = internal/date
     interval = 1
     date = %a, %d %b
-    ;date-alt = %A, %d.%m.%Y
     format =  <label>
-    format-background = ${colors.background}
-    format-foreground = ${colors.foreground}
+    format-background = ${colors.dark}
+    format-foreground = ${colors.white}
     format-padding = 0
     label = %date% 
-    label-foreground = ${colors.foreground}
+    label-foreground = ${colors.white}
 
 [module/xkeyboard]
     type = internal/xkeyboard
-    ;List of indicators to ignore
+; List of indicators to ignore
     blacklist-0 = num lock
     blacklist-1 = scroll lock
 
     format-prefix = "  "
-    ;format-prefix-foreground = ${colors.foreground-alt}
 
     label-layout = %name%
 
     label-indicator-padding = 2
-    label-indicator-margin = 1
-    label-indicator-background = #fff
+;    label-indicator-margin = 1
+;    label-indicator-background = #fff
 
 [module/pulseaudio]
     type = internal/pulseaudio
 
     format-volume = <label-volume>
     label-volume =  %percentage%%
-    label-volume-foreground = ${root.foreground}
+    label-volume-foreground = ${colors.white}
 
     label-muted =  muted
     label-muted-foreground = #666
@@ -205,48 +200,42 @@ cursor-scroll = ns-resize
     type = internal/i3
     format = <label-state> <label-mode>
     index-sort = true
-    wrapping-scroll = false
-
-    ; Only show workspaces on the same output as the bar
-    ;pin-workspaces = true
+    enable-scroll = false
 
     label-mode-padding = 2
     label-mode-foreground = #000
-    label-mode-background = ${colors.primary}
+    label-mode-background = ${colors.yellow}
 
-    ; focused = Active workspace on focused monitor
+; focused = Active workspace on focused monitor
     label-focused =  : %index%
-    label-focused-background = ${colors.background-alt}
-    label-focused-underline= ${colors.primary}
+    label-focused-foreground = ${colors.yellow}
+    label-focused-underline= ${colors.yellow}
     label-focused-padding = 2
 
-    ; unfocused = Inactive workspace on any monitor
+; unfocused = Inactive workspace on any monitor
     label-unfocused =  : %index%
     label-unfocused-padding = 2
 
-    ; visible = Active workspace on unfocused monitor
+; visible = Active workspace on unfocused monitor
     label-visible =  : %index%
     label-visible-background = ${self.label-focused-background}
     label-visible-underline = ${self.label-focused-underline}
     label-visible-padding = ${self.label-focused-padding}
 
-    ; urgent = Workspace with urgency hint set
+; urgent = Workspace with urgency hint set
     label-urgent =  : %index%
     label-urgent-background = ${colors.alert}
     label-urgent-padding = 2
 
-    ; label-separator = |
-
 [settings]
     screenchange-reload = true
-    ;compositing-background = xor
-    ;compositing-background = screen
-    ;compositing-foreground = source
-    ;compositing-border = over
-    ;pseudo-transparency = false
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
 
 [global/wm]
-    margin-top = 5
+    margin-top = 0
     margin-bottom = 0
 
 ; vim:ft=dosini
