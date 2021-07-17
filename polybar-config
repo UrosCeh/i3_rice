@@ -54,7 +54,7 @@ modules-left = temperature memory cpu eth wlan
 modules-center = i3
 modules-right =  xkeyboard pulseaudio date time
 
-tray-position = left
+tray-position = none
 tray-padding = 2
 
 ;wm-restack = bspwm
